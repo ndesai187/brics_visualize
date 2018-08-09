@@ -15,7 +15,7 @@ def create_frame(years_x_axis, country_list, country_data_y_axis):
     return df
 
 
-def plot_graph(years_x_axis, country_list, country_data_y_axis):
+def plot_graph(years_x_axis, country_list, country_data_y_axis, output_png):
     plot_frame = create_frame(years_x_axis, country_list, country_data_y_axis)
     # style
     plt.style.use('seaborn-darkgrid')
@@ -31,7 +31,10 @@ def plot_graph(years_x_axis, country_list, country_data_y_axis):
 
     # Add legend
     plt.legend(loc=2, ncol=2)
-    plt.savefig('../target/gdp_per_capita.png')
+    plt.savefig('../target/{}.png'.format(output_png))
+    plt.clf()
+    plt.cla()
+    plt.close()
 
 
 
