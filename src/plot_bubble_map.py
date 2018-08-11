@@ -5,7 +5,7 @@ def plotBubbleMap(df_gdp):
     colors = ["rgb(0,116,217)", "rgb(255,65,54)", "rgb(133,20,75)", "rgb(255,133,27)", "rgb(255,220,0)"]
     cities = []
     df_gdp['text'] = df_gdp['capital'] + '<br>GDP ' + (df_gdp['gdp_total'] / 1e12).round(4).astype(str) + ' Trillion'
-    scale = 95000000000
+    scale = 90000000000
 
     for i in range(0, len(df_gdp['country_code'])):
         df_sub = df_gdp[i:i+1]

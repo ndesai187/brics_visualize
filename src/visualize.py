@@ -3,7 +3,9 @@ import numpy as np
 from resources import selection
 from src import plot_scatter, plot_bubble_map
 
-country_list = ["BRA", "CHN", "IND", "RUS", "ZAF"]
+# country_list = ["BRA", "CHN", "IND", "RUS", "ZAF"]
+country_list = ["PAK", "PHL", "THA", "TUR",  "ZWE"]
+# country_list = ["DEU", "FRA", "GBR", "SWE", "USA"]
 
 '''
 This function will filter initial gender stats file to better utilise memory
@@ -61,7 +63,7 @@ def triggerBubblePlot(infile, indicator):
     plot_bubble_map.plotBubbleMap(total_gdp_df)
 
 
-def unEmplotementAndPPP(inFile_ppp, inFile_gender, indicator_female, indicator_male):
+def unEmplotementAndPPP(inFile_ppp, inFile_gender, indicator_female, indicator_male, y_axis_label_1, y_axis_label_2):
     dataset_df = pd.DataFrame()
 
     # filter our and group by values from PPP file
@@ -82,7 +84,7 @@ def unEmplotementAndPPP(inFile_ppp, inFile_gender, indicator_female, indicator_m
     female_stats_list = genderFilteredByIndicator(inFile_gender, str(2000), str(2017), indicator_female, 1)
     male_stats_list = genderFilteredByIndicator(inFile_gender, str(2000), str(2017), indicator_male, 1)
 
-    plot_scatter.plotScatterMultiAxisY(list(range(2000, 2018)), country_list_name, female_stats_list, male_stats_list, dataset_df)
+    plot_scatter.plotScatterMultiAxisY(list(range(2000, 2018)), country_list_name, female_stats_list, male_stats_list, dataset_df, y_axis_label_1, y_axis_label_2)
     # print(dataset_df['Country'])
     # print(dataset_df['Financial closure year'])
     # print(dataset_df['TotalInvestment'])
@@ -92,6 +94,29 @@ def unEmplotementAndPPP(inFile_ppp, inFile_gender, indicator_female, indicator_m
     # gender_stats_byRow_df = gender_stats_byRow_df.fillna(0)
     # gender_stats_byCol_list = gender_stats_byRow_df.loc[:, '2000':'2017'].values.tolist()
     # # call plot function to create graph
+
+
+def plotGdpAndNFI(inFile_nfi, inFile_gender, indicator_gdp, y_axis_label_1, y_axis_label_2):
+    dataset_df = pd.DataFrame()
+
+    # filter our and group by values from PPP file
+    f_nfi = pd.read_excel(inFile_nfi)
+    f_nfi = f_nfi.convert_objects(convert_numeric=True)
+    f_nfi['nfi'] = f_nfi['nfi'].fillna(0)
+    # f_ppp = f_ppp.groupby(['Country', 'Financial closure year'], as_index=False)['TotalInvestment'].sum()
+
+    # Plot GDP per capita
+    country_df = pd.read_csv('../resources/Gender_StatsCountry.csv')
+    country_list_name = country_df['Short Name'][country_df['Country Code'].isin(country_list)]
+    country_list_name = country_list_name.unique()
+    dataset_df['country'] = f_nfi['country'][f_nfi['country'].isin(country_list_name)].values
+    dataset_df['year'] = f_nfi['year'][f_nfi['country'].isin(country_list_name)].values
+    dataset_df['nfi'] = f_nfi['nfi'][f_nfi['country'].isin(country_list_name)].values
+
+    gdp_rate_list = genderFilteredByIndicator(inFile_gender, str(2006), str(2017), indicator_gdp, 1)
+
+    plot_scatter.plotScatterMultiAxisY_temp(list(range(2006, 2018)), country_list_name, gdp_rate_list,
+                                       dataset_df, y_axis_label_1, y_axis_label_2)
 
 
 def visualize():
@@ -116,7 +141,14 @@ def visualize():
     unemp_indicator_female = "SL.UEM.TOTL.FE.ZS"
     unemp_indicator_male = "SL.UEM.TOTL.MA.ZS"
     ppp_stats_inFile = "../resources/CustomQuery-8_9_2018.xls"
-    unEmplotementAndPPP(ppp_stats_inFile, gender_stats_inFile, unemp_indicator_female, unemp_indicator_male)
+    y_axis_label_1 = "% unemployment of total population"
+    y_axis_label_2 = "PPP in US$ millions"
+    unEmplotementAndPPP(ppp_stats_inFile, gender_stats_inFile, unemp_indicator_female, unemp_indicator_male, y_axis_label_1, y_axis_label_2)
+
+    nfi_stats_inFile = "../resources/nfi_simple_0.xls"
+    y_axis_label_1 = "Annual GDP growth %"
+    y_axis_label_2 = "NFI Index"
+    plotGdpAndNFI(nfi_stats_inFile, gender_stats_inFile, gdp_growth_indicator, y_axis_label_1, y_axis_label_2)
 
 
 if __name__ == "__main__":
