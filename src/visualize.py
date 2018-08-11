@@ -32,12 +32,12 @@ def genderFilteredByIndicator(infile, yearColumnFrom, yearColumnTo, indicator, s
         return gender_stats_byCol_list
 
 
-def triggerScatterPlot(infile, indicator, step_data_points):
+def triggerScatterPlot(infile, indicator, step_data_points, y_axis_label_lst):
     gender_stats_byCol_list = genderFilteredByIndicator(infile, str(1980), str(2017), indicator, step_data_points)
 
     # call plot function to create graph
     plot_scatter.plotSimpleScatterGraph(list(range(1980, 2018, step_data_points)), country_list,
-                                        gender_stats_byCol_list,
+                                        gender_stats_byCol_list, y_axis_label_lst,
                                         output_png=indicator)
 
 
@@ -102,10 +102,12 @@ def visualize():
     # trigger GDP per capita plot
     gdp_per_capita_indicator = "NY.GDP.PCAP.CD"
     step_data_points = 1
-    triggerScatterPlot(gender_stats_outFile, gdp_per_capita_indicator, step_data_points)
+    y_axis_label = "GDP Per Capita in US$"
+    triggerScatterPlot(gender_stats_outFile, gdp_per_capita_indicator, step_data_points, y_axis_label)
 
     gdp_growth_indicator = "NY.GDP.MKTP.KD.ZG"
-    triggerScatterPlot(gender_stats_outFile, gdp_growth_indicator, step_data_points)
+    y_axis_label = "Annual GDP growth %"
+    triggerScatterPlot(gender_stats_outFile, gdp_growth_indicator, step_data_points, y_axis_label)
 
     gdp_indicator = "NY.GDP.MKTP.CD"
     triggerBubblePlot(gender_stats_outFile, gdp_indicator)

@@ -4,26 +4,30 @@ import plotly.offline as plty
 def plotBubbleMap(df_gdp):
     colors = ["rgb(0,116,217)", "rgb(255,65,54)", "rgb(133,20,75)", "rgb(255,133,27)", "rgb(255,220,0)"]
     cities = []
+    df_gdp['text'] = df_gdp['capital'] + '<br>GDP ' + (df_gdp['gdp_total'] / 1e12).round(4).astype(str) + ' Trillion'
     scale = 95000000000
 
-    for color in colors:
+    for i in range(0, len(df_gdp['country_code'])):
+        df_sub = df_gdp[i:i+1]
+
         city = dict(
             type='scattergeo',
             locationmode='ISO-3',
-            lon=df_gdp['CapitalLongitude'],
-            lat=df_gdp['CapitalLatitude'],
-            text=df_gdp['capital'],
+            lon=df_sub['CapitalLongitude'],
+            lat=df_sub['CapitalLatitude'],
+            text=df_sub['text'][i],
             sizemode='diameter',
             marker=dict(
-                size=df_gdp['gdp_total'] / scale,
-                color=color,
+                size=df_sub['gdp_total'] / scale,
+                color=colors[i],
+                # color=df['colors'][i],
                 line=dict(width=2, color='black')
             ),
-            name='Some Name')
+            name=df_gdp['country_code'][i])
         cities.append(city)
 
     layout = dict(
-        title='2014 US city populations<br>(Click legend to toggle traces)',
+        title='Total GDP by country for year 2017<br>(Click legend to toggle traces)',
         showlegend=True,
         geo=dict(
             scope='world',
@@ -36,9 +40,44 @@ def plotBubbleMap(df_gdp):
             countrycolor="rgb(255, 255, 255)"
         ),
     )
-
     fig = dict(data=cities, layout=layout, auto_open=False)
     plty.plot(fig, validate=False, filename='../target/d3-bubble-map-gdp.html', auto_open=False)
+
+    # city = dict(
+    #     type='scattergeo',
+    #     locationmode='ISO-3',
+    #     lon=df_gdp['CapitalLongitude'],
+    #     lat=df_gdp['CapitalLatitude'],
+    #     # text=df_gdp['capital'],
+    #     text=df['text'],
+    #     sizemode='diameter',
+    #     marker=dict(
+    #         size=df_gdp['gdp_total'] / scale,
+    #         # color=colors[i],
+    #         color=df['colors'],
+    #         line=dict(width=2, color='black')
+    #     ),
+    #     name=df_gdp['country_code'])
+    # print(city)
+    # cities.append(city)
+
+    # city = dict(
+    #     type='scattergeo',
+    #     locationmode='ISO-3',
+    #     lon=df_gdp['CapitalLongitude'],
+    #     lat=df_gdp['CapitalLatitude'],
+    #     # text=df_gdp['capital'],
+    #     text=df['text'],
+    #     sizemode='diameter',
+    #     marker=dict(
+    #         size=df_gdp['gdp_total'] / scale,
+    #         # color=colors[i],
+    #         color=df['colors'],
+    #         line=dict(width=2, color='black')
+    #     ),
+    #     name=df_gdp['country_code'])
+    # print(city)
+    # cities.append(city)
 
     # url = plty.plot(fig, validate=False, filename='../target/d3-bubble-map-gdp.html', auto_open=False)
     # tls.get_embed(url)

@@ -31,7 +31,7 @@ def createDataframeMultiAxis(years_x_axis, country_list, x_PPP_df):
     # print(asList_PPP[3])
 
 
-def plotSimpleScatterGraph(years_x_axis, country_list, country_data_y_axis, output_png):
+def plotSimpleScatterGraph(years_x_axis, country_list, country_data_y_axis, y_axis_label_lst, output_png):
     plot_frame = createDataFrame(years_x_axis, country_list, country_data_y_axis)
     # style
     plt.style.use('seaborn-darkgrid')
@@ -48,6 +48,7 @@ def plotSimpleScatterGraph(years_x_axis, country_list, country_data_y_axis, outp
 
     # Add legend
     plt.legend(loc=2, ncol=2)
+    plt.ylabel(y_axis_label_lst)
     plt.savefig('../target/{}.png'.format(output_png))
     plt.clf()
     plt.cla()
