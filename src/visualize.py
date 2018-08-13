@@ -6,7 +6,10 @@ from src import plot_scatter, plot_bubble_map
 country_list = ["BRA", "CHN", "IND", "RUS", "ZAF"]
 # country_list = ["PAK", "PHL", "THA", "TUR",  "ZWE"]
 # country_list = ["AFG", "COL", "PAK", "TUR",  "ZWE"]
-# country_list = ["AFG", "BTN", "CHL", "GRC", "PAK"]
+
+# comment PPP and NFI generation
+# country_list = ["AFG", "CHL", "GRC", "PAK", "SYR"]
+# country_list = ["IRN", "IRQ", "MAR", "LBY", "SYR"]
 # commend PPP generation
 # country_list = ["DEU", "FRA", "GBR", "SWE", "USA"]
 
@@ -22,6 +25,11 @@ def filterGenderStatsFile(inFile, outFile):
     f_data_indicator.to_csv(outFile)
 
 
+'''
+This function will filter gender stats file with 3 inputs
+yearColumnFrom - start year
+yearColumnTo - end year
+indicator - index to be filtered'''
 def genderFilteredByIndicator(infile, yearColumnFrom, yearColumnTo, indicator, step_data_points):
     gender_stats_df = pd.read_csv(infile)
     gender_stats_byRow_df = gender_stats_df[(gender_stats_df['Country Code'].isin(country_list)) & (
@@ -35,6 +43,7 @@ def genderFilteredByIndicator(infile, yearColumnFrom, yearColumnTo, indicator, s
         return gender_stats_byCol_list
 
 
+# Filter data and trigger simple scatter plot
 def triggerScatterPlot(infile, indicator, step_data_points, y_axis_label_lst):
     gender_stats_byCol_list = genderFilteredByIndicator(infile, str(1980), str(2017), indicator, step_data_points)
 
@@ -44,6 +53,7 @@ def triggerScatterPlot(infile, indicator, step_data_points, y_axis_label_lst):
                                         output_png=indicator)
 
 
+# Filter data and trigger bubble map
 def triggerBubblePlot(infile, indicator):
     gender_stats_byRow_df = genderFilteredByIndicator(infile, 'NA', 'NA', indicator, 1)
 
@@ -64,6 +74,7 @@ def triggerBubblePlot(infile, indicator):
     plot_bubble_map.plotBubbleMap(total_gdp_df)
 
 
+# Filter data and trigger multi axis scatter plot
 def unEmplotementAndPPP(inFile_ppp, inFile_gender, indicator_female, indicator_male, y_axis_label_1, y_axis_label_2):
     dataset_df = pd.DataFrame()
 
@@ -97,6 +108,7 @@ def unEmplotementAndPPP(inFile_ppp, inFile_gender, indicator_female, indicator_m
     # # call plot function to create graph
 
 
+# Filter data and trigger multi axis scatter plot
 def plotGdpAndNFI(inFile_nfi, inFile_gender, indicator_gdp, y_axis_label_1, y_axis_label_2):
     dataset_df = pd.DataFrame()
 
