@@ -3,8 +3,11 @@ import numpy as np
 from resources import selection
 from src import plot_scatter, plot_bubble_map
 
-# country_list = ["BRA", "CHN", "IND", "RUS", "ZAF"]
-country_list = ["PAK", "PHL", "THA", "TUR",  "ZWE"]
+country_list = ["BRA", "CHN", "IND", "RUS", "ZAF"]
+# country_list = ["PAK", "PHL", "THA", "TUR",  "ZWE"]
+# country_list = ["AFG", "COL", "PAK", "TUR",  "ZWE"]
+# country_list = ["AFG", "BTN", "CHL", "GRC", "PAK"]
+# commend PPP generation
 # country_list = ["DEU", "FRA", "GBR", "SWE", "USA"]
 
 '''
