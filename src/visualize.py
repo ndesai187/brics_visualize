@@ -14,8 +14,6 @@ country_list = ["BRA", "CHN", "IND", "RUS", "ZAF"]
 This function will filter initial gender stats file to better utilise memory
 The functionality is already implemented in genderFilteredByIndicator(), but
 the idea is to filter initial list itself.'''
-
-
 def filterGenderStatsFile(inFile, outFile):
     f_data = pd.read_csv(inFile)
 
@@ -121,7 +119,9 @@ def plotGdpAndNFI(inFile_nfi, inFile_gender, indicator_gdp, y_axis_label_1, y_ax
     plot_scatter.plotScatterMultiAxisY_temp(list(range(2006, 2018)), country_list_name, gdp_rate_list,
                                        dataset_df, y_axis_label_1, y_axis_label_2)
 
-
+'''
+The core function to point files and filtering criteria from input files (csv, excel)
+and trigger graph plots.'''
 def visualize():
     gender_stats_inFile = "../resources/Gender_StatsData.csv"
     gender_stats_outFile = "../target/filtered_gender_stats.csv"
@@ -133,14 +133,16 @@ def visualize():
     y_axis_label = "GDP Per Capita in US$"
     triggerScatterPlot(gender_stats_outFile, gdp_per_capita_indicator, step_data_points, y_axis_label)
 
+    # Trigger GDP growth rate plot
     gdp_growth_indicator = "NY.GDP.MKTP.KD.ZG"
     y_axis_label = "Annual GDP growth %"
     triggerScatterPlot(gender_stats_outFile, gdp_growth_indicator, step_data_points, y_axis_label)
 
+    # Trigger bubble map plot based on total GDP
     gdp_indicator = "NY.GDP.MKTP.CD"
     triggerBubblePlot(gender_stats_outFile, gdp_indicator)
 
-    # read ppp excel
+    # Trigger unemployment vs PPP plot
     unemp_indicator_female = "SL.UEM.TOTL.FE.ZS"
     unemp_indicator_male = "SL.UEM.TOTL.MA.ZS"
     ppp_stats_inFile = "../resources/CustomQuery-8_9_2018.xls"
@@ -148,6 +150,7 @@ def visualize():
     y_axis_label_2 = "PPP in US$ millions"
     unEmplotementAndPPP(ppp_stats_inFile, gender_stats_inFile, unemp_indicator_female, unemp_indicator_male, y_axis_label_1, y_axis_label_2)
 
+    # Trigger GDP growth rate vs NFI plot
     nfi_stats_inFile = "../resources/nfi_simple_0.xls"
     y_axis_label_1 = "Annual GDP growth %"
     y_axis_label_2 = "NFI Index"
