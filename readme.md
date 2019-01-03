@@ -11,3 +11,6 @@
     
     3. GDP vs Neighborhood Fragility Index (NFI)
         * Scatter plot with multiple Y axis on left and right
+
+* Sample
+[Graph 1](http://htmlpreview.github.com/?https://github.com/ndesai187/brics_visualize/blob/master/target/BRICS_visualise_GDP.html)
