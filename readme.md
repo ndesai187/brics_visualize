@@ -12,23 +12,15 @@ Hey, it was fun to learn python. The utility function with :
         * GDP per Capita over years (scatter plot)
         * GDP % growth rate over years (scatter plot)
         * Total GDP by country for year 2017 (bubble map)
-        * [Click here to see output from utility](http://htmlpreview.github.com/?https://github.com/ndesai187/brics_visualize/blob/master/target/BRICS_visualise_GDP.html)
+        * [Click here to see output from utility](https://ndesai187.github.io/brics_visualize/target/BRICS_visualise_GDP.html)
         
     2. Unemployment vs Public Private Partnership (PPP)
         * Scatter plot with multiple Y axis on left and right
-        * [Click here to see output from utility](http://htmlpreview.github.com/?https://github.com/ndesai187/brics_visualize/blob/master/target/BRICS_visualise_PPP.html)
+        * [Click here to see output from utility](https://ndesai187.github.io/brics_visualize/target/BRICS_visualise_PPP.html)
     
     3. GDP vs Neighborhood Fragility Index (NFI)
         * Scatter plot with multiple Y axis on left and right
-        * [Click here to see output from utility](http://htmlpreview.github.com/?https://github.com/ndesai187/brics_visualize/blob/master/target/BRICS_visualise_nfi.html)
-
-sample 1
-![Test] 
-(https://github.com/ndesai187/brics_visualize/blob/master/target/d3-bubble-map-gdp.html)
-
-sample 2
-![Test 2]
-(https://github.com/ndesai187/brics_visualize/blob/master/target/gdp_vs_nfi_4.png)
+        * [Click here to see output from utility](https://ndesai187.github.io/brics_visualize/target/BRICS_visualise_nfi.html)
 
 ### Libraries used: numpy, pandas, plotly, matplotlib
 
