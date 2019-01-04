@@ -22,8 +22,13 @@ Hey, it was fun to learn python. The utility function with :
         * Scatter plot with multiple Y axis on left and right
         * [Click here to see output from utility](http://htmlpreview.github.com/?https://github.com/ndesai187/brics_visualize/blob/master/target/BRICS_visualise_nfi.html)
 
-my name
-![Test] (https://github.com/ndesai187/brics_visualize/blob/master/target/d3-bubble-map-gdp.html)
+sample 1
+![Test] 
+(https://github.com/ndesai187/brics_visualize/blob/master/target/d3-bubble-map-gdp.html)
+
+sample 2
+![Test 2]
+(https://github.com/ndesai187/brics_visualize/blob/master/target/gdp_vs_nfi_4.png)
 
 ### Libraries used: numpy, pandas, plotly, matplotlib
 
